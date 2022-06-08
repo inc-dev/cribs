@@ -1,0 +1,14 @@
+cmd
+git clone https://github.com/inc-dev/js-titorial.git
+cd js-titorial
+изменяем содержимое
+git status 
+git add 01
+git commit -m "comment"
+git push
+//---------
+git pull 
+изменяем содержимое
+git status
+git add -A
+git commit -m "comment"
