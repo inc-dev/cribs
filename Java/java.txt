@@ -1,0 +1,6 @@
+apt install openjdk-11-jdk
+
+
+jar uvfm ServerObj.jar MANIFEST.MF
+
+ps -ef | grep java

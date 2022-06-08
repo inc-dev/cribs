@@ -1,0 +1,80 @@
+http://leybabronstain.ucoz.com/blog/kak_ja_ustanavlival_firebird_3_na_debian_8/2017-03-21-15
+https://habr.com/ru/post/491094/
+https://habr.com/ru/post/491094/
+http://www.ibase.ru/files/firebird/fb_linux_install.pdf
+
+/usr/sbin/usermod
+export PATH="/usr/sbin:$PATH"
+nano /etc/sudoers      <- имя_пользователя ALL = (ALL) ALL
+sudo apt-get update
+
+1)
+nano /etc/sysctl.conf     <- vm.max_map_count = 256000
+sudo sysctl -p /etc/sysctl.conf
+2)
+sudo apt-get -y install libncurses5 libtommath1
+sudo ln -s libtommath.so.1 /usr/lib/x86_64-linux-gnu/libtommath.so.0
+
+mkdir tmp
+sudo wget -O- https://github.com/FirebirdSQL/firebird/releases/download/R3_0_5/Firebird-3.0.5.33220-0.amd64.tar.gz |tar -zxC ~/tmp
+
+export PATH="/opt/firebird/bin:$PATH"
+
+?sudo groupadd firebird &&
+?sudo useradd -M -b /opt -s /sbin/nologin -g firebird -u UID firebird
+
+
+
+Откорректировал файла /etc/hosts
+Там была строка: 127.0.0.1 localhost
+Изменил на такую: 127.0.0.1 localhost <host_name>.<domain_name> <host_name>
+
+И напоследок, если хотим удалить только сервер, то
+# apt-get remove firebird3.0-server
+если со всеми пакетами, то
+# apt-get purge firebird3.0-server
+
+
+
+
+
+
+sudo apt-get install flamerobin    http://leybabronstain.ucoz.com/blog/nekotorye_nastrojki_flamerobin_na_debian/2017-03-30-16
+
+
+
+CREATE DATABASE 'localhost:/home/alex/temp/wares2.fbd' page_size 8192  user 'SYSDBA' password 'masterkey';
+
+isql-fb 
+CONNECT '/home/alex/temp/wares2.fbd' user 'SYSDBA' password 'masterkey';
+
+CREATE TABLE WARES_C0 (
+    BARCODE  VARCHAR(30),
+    NAME     VARCHAR(700)
+);
+
+insert into WARES_C0(BARCODE,NAME)values('4601466001059','Сигареты');
+insert into WARES_C0(BARCODE,NAME)values('6970933302509','Маркер');
+insert into WARES_C0(BARCODE,NAME)values('4015400741602','Памперсы');
+insert into WARES_C0(BARCODE,NAME)values('5021349700166','Виски');
+insert into WARES_C0(BARCODE,NAME)values('4602112503477','кофе Классик 78г');
+insert into WARES_C0(BARCODE,NAME)values('4627089930989','автомобильный аккумулятор');
+insert into WARES_C0(BARCODE,NAME)values('4607051352766','Азбука Здоровья, фруктовый батончик');
+insert into WARES_C0(BARCODE,NAME)values('6923790708557','Чай');
+insert into WARES_C0(BARCODE,NAME)values('4603146004077','коньяк');
+insert into WARES_C0(BARCODE,NAME)values('4028224509006','клемы');
+insert into WARES_C0(BARCODE,NAME)values('4680211074647','циркуль');
+insert into WARES_C0(BARCODE,NAME)values('4860008891897','вино столовое арагви софико');
+insert into WARES_C0(BARCODE,NAME)values('4850003700164','варенье');
+insert into WARES_C0(BARCODE,NAME)values('4951499014459','IPF SUPER CLEAR Long Life H1 3000K 6X11');
+insert into WARES_C0(BARCODE,NAME)values('8857121194130','крем just pearl');
+insert into WARES_C0(BARCODE,NAME)values('4547359451689','подшипник');
+insert into WARES_C0(BARCODE,NAME)values('4823096803944','Чай "Гринфилд", клубника 25 пакетиков');
+insert into WARES_C0(BARCODE,NAME)values('4955814148294','шампунь');
+insert into WARES_C0(BARCODE,NAME)values('4690363051304','Лента стеклоочистителя силикон 2 шт. x 61,5 см');
+insert into WARES_C0(BARCODE,NAME)values('3245671760465','коньки');
+insert into WARES_C0(BARCODE,NAME)values('8005610521657','Lacoste L''Homme туалетная вода для мужчин');
+insert into WARES_C0(BARCODE,NAME)values('4580281455189','прокладка');
+insert into WARES_C0(BARCODE,NAME)values('4606600603021','рубанок по дереву');
+insert into WARES_C0(BARCODE,NAME)values('7612901400549','Часы');
+select * from  WARES_C0;

@@ -1,0 +1,187 @@
+https://stackoverflow.com/questions/15758685/how-to-write-logs-in-text-file-when-using-java-util-logging-logger
+FileHandler fh;   
+fh = new FileHandler("C:/className.log");   
+logger.addHandler(fh); 
+
+//------------------------------
+byte(1),short(2),int(4),long(8)
+char x='x'; //2 байта
+float(4),double(8)
+long a=23432534653246256354L;
+long a=Ox7ffffffffffffffL;
+int a=0b1010;
+int i=12_000;
+String a="\141 \u0061 \" ";
+byte b=(byte)5+6;
+//------------------------------
+int d[]=new int[12];   // int[] d;  то же
+int d[]={1,2,3,4};     // d.length;
+int dd[][]=new int[4][5]; //[строка][столбец]
+int dd[][]={{1,2},{3,4}};
+//------------------------------
+>> - оставляет  знак, а >>> страршим делает ноль(>>=,>>>=)
+поразрядные:~(не)&(и)|(или)^(ксор) 
+int k = i<0 ? -i : i; //abs
+//------------------------------
+switch(усл){
+ case 1:  действие break;
+ default:
+}
+//------------------------------
+int sum=0;
+int array[]={1,2,3,4};
+for(int value: array) sum+=value;
+loop:{ break loop;}
+//------------------------------
+public private static final
+//------------------------------
+int test(int ... d){
+int sum=0;
+ for(int v: d)sum+=v;
+ return sum;
+}
+//------------------------------
+abstract class A {
+  int i;
+  int p;
+  A(int p)
+  {
+   this.p=p;
+   i=p+1;
+  }
+abstract  void do();
+}
+class B extends A{
+ int i;
+  B(int pp)
+  {
+   super(pp+1);
+   this.i=super.i;
+  }
+
+  @Override
+final void do(){}
+}
+//------------------------------
+package ru.kbrestart.my_kub;
+import java.io.*;
+//------------------------------
+interface Callback{
+ int no=0;
+ int yes=1;
+ void call(int param);
+}
+class Client extends B implements Callback{
+public void call(int p){
+
+ }
+}
+main()
+{
+ Callback c=new Client();
+ c.call(10);
+}
+abstract class MyIncomplete implements Callback{}
+
+interface A
+{
+ void m1();
+ void m2();
+ default String getString(){
+  return "Hi";
+ }
+ static int Number(){return 0;}
+}
+int i=A.Number();// :) 
+interface B extends A
+{
+ void m3();
+}
+//------------------------------
+class MyException extends Exception {
+   private int detail;
+  MyException(int а) {
+  detail = а;
+  }
+}  
+try {
+  throw new MyException(a);
+}catch (MyException е) {}
+finally {
+System.out.println(
+"Блок оператора finally в методе procA()");
+}
+//------------------------------
+Thread t = Thread.currentThread();
+t. setName ("Му Thread");
+
+class NewThread implements Runnable{
+  Thread t;
+  NewThread(){
+  t = new Thread(this,"demo");
+  t.start();
+  }
+  public void run(){
+    try {
+     for(int i=5;i>0;i--)
+      {
+        System.out.println("hi - "+i);
+        Thread.sleep(500);
+      }
+   }catch (InterruptedException е){
+     System.out.println("Дoчepний поток прерван.");
+   }
+    System.out.println("Дoчepний поток завершен.");      
+  }
+}
+main()
+{
+  NewThread tt=new NewThread();
+    try {
+     for(int i=5;i>0;i--)
+      {
+        System.out.println("main hi - "+i);
+        Thread.sleep(1000);
+      }
+   }catch (InterruptedException е){
+     System.out.println("главный поток прерван.");
+   }
+    System.out.println("главный поток завершен.");      
+  tt.t.join();    
+}
+//---
+class NewThread implements Thread{
+ NewThread()
+ {start();}
+   public void run(){
+    try {
+     for(int i=5;i>0;i--)
+      {
+        System.out.println("hi - "+i);
+        Thread.sleep(500);
+      }
+   }catch (InterruptedException е){
+     System.out.println("Дoчepний поток прерван.");
+   }
+    System.out.println("Дoчepний поток завершен.");      
+  }
+}
+main()
+{
+  NewThread tt=new NewThread();
+    try {
+     for(int i=5;i>0;i--)
+      {
+        System.out.println("main hi - "+i);
+        Thread.sleep(1000);
+      }
+   }catch (InterruptedException е){
+     System.out.println("главный поток прерван.");
+   }
+    System.out.println("главный поток завершен.");      
+  tt.join();  
+}
+//---
+isAlive () исполняется ли поток
+join()     дожидается завершения 
+synchronized стр 332

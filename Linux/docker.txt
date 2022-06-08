@@ -1,0 +1,113 @@
+sudo apt update  #  обновляет репозиторий
+sudo apt install apt-transport-https # нужная штука :)
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -     # добавляем ключ ?
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -     # добавляем ключ ?
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"    # видимо прописываем в репозиторий что скачивать только стабильные версии
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu/dists/eoan stable"    # видимо прописываем в репозиторий что скачивать только стабильные версии
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu eoan stable"    # видимо прописываем в репозиторий что скачивать только стабильные версии
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"    # видимо прописываем в репозиторий что скачивать только стабильные версии
+sudo apt update  #  обновляет репозиторий
+sudo apt install docker-ce # устанавливаем докер машину
+sudo systemctl status docker # проверяем статус
+docker -v # версия докера
+sudo usermod -aG docker $USER  # добавляем текущего пользователя в группу docker
+
+docker images
+docker run hello-world
+https://hub.docker.com/
+docker ps            # запущеные контейнеры
+docker ps -a         # все контейнеры которые бежали
+docker images        # образы
+docker search tomcat # поиск tomcat
+docker pull tomcat   # скачать образ tomcat
+docker run -it -p 1234:8080 tomcat   # запустить образ tomcat интерактивно по порту  1234
+docker run -d -p  1235:8080 tomcat   # запустить образ tomcat демон по порту  1235
+docker run -d -p  1236:8080 tomcat   # запустить еще образ tomcat демон по порту  1236
+docker run -d -p  1237:80 nginx
+
+docker rmi hello-world # стереть имадж
+docker rm 7cb84564161b # стереть контейнер получив номер из docker ps -a 
+nano Dockerfile
+ FROM debian:buster
+
+ FROM ubuntu:16.04
+
+ RUN apt-get -y update
+ RUN apt-get -y install apache2
+
+ RUN apt-get -y install firebird3.0-common
+ RUN apt-get -y install php7.3
+
+ RUN echo 'Hello World from Docker!' > /var/www/html/index.html
+
+
+ CMD ["/usr/sbin/apache2ctl", "-D","FOREGROUND"]
+ EXPOSE 80
+
+
+docker build -t apache_a:v1 .           # точка нужна сборка имаджа
+
+https://www.youtube.com/watch?v=7iJLvondL5U&list=PLg5SS_4L6LYvN1RqaVesof8KAf-02fJSi&index=6
+docker build -t my_k8s_app .
+docker tag my_k8s_app:latest 9995673748450544/k8sphp:latest
+docker login
+Hub.docker  9995673748450544 inc $tVPHku.EV2*%2N
+docker push 9995673748450544/k8sphp:latest
+docker rmi e99bc73c427b -f
+docker run -it -p 1234:80 9995673748450544/k8sphp:latest
+localhost:1234
+
+docker run -d -p 7777:80  apache_a:v1
+docker run -it apache_a:v1
+docker tag apache_a:v1 apache_a:copy    # делает копию с таком copy
+
+CONTAINER ID из docker ps 237cc7573504
+docker exec -it 237cc7573504 /bin/bash   # зашли в контейнер
+
+docker exec -it 7991d11cb432  /bin/bash
+
+
+echo "V2" >> /var/www/html/index.html
+exit
+docker commit 7735443db6dc apache_a:v2
+
+docker run -d -p 8888:80  apache_a:v2
+
+docker save image:tag > arch_name.tar
+docker load -i arch_name.tar
+
+
+Import/Export Docker Image to AWS ECR
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+docker build -t denis:v1 .
+aws ecr get-login --no-include-email --region=ca-central-1 
+docker tag  denis:v1  12345678.dkr.ecr.ca-central-1.amazonaws.com/myrepo:latest
+docker push 12345678.dkr.ecr.ca-central-1.amazonaws.com/myrepo:lastest
+
+docker pull 12345678.dkr.ecr.ca-central-1.amazonaws.com/myrepo:latest
+
+
+
+Kill and Delete Containers and Images
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+docker rm -f $(docker ps -aq)        # Delete all Containers
+docker rmi -f $(docker images -q)    # Delete all Images
+
+//----------------------
+https://www.youtube.com/watch?v=ZIvUTNWBmH4
+
+FROM bellsoft/liberica-openjdk-alpine:11.0.3
+ENV PROJECT_ROOT /usr/src/app
+WORKDIR $PROJECT_ROOT
+COPY ./ServObjMaven.jar ServObjMaven.jar
+CMD java -jar ServObjMaven.jar
+
+
+docker build -t my_vert_db:v1 .
+docker run -d -p 7777:8081  my_vert_db:v1
+docker rmi my_vert_db:v1
+docker images
+
+
+docker run --memory=66m --memory-swap=66m --cpus 2 -d -p 7777:8081  my_vert_db:v1
+java -XX:+UseContainerSupport -Xmx10g -Xms10g

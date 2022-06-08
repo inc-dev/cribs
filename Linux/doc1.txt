@@ -1,0 +1,180 @@
+C:\ProgramData\Oracle\Java\javapath
+http://unetbootin.github.io/  - создавать на флешке образ7
+https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/
+df сколько памяти на дисках
+apt install htop
+du -sh   сколько памяти на диске занимает все
+du -sh Desktop/ сколько памяти на диске занимает Desktop/
+----- 3 ----------------------
+uptime      # сколько работает комп и сколько пользователей
+uname -a    # какой линукс 
+lscpu       # какой процессор
+clear       # очистить
+ls -l       # dir
+echo $PATH  # пути где ищутся программы
+ctrl alt f3-f6 терминал f2 вернуться
+man -k time # поиск помоши по слову time
+man uptime  # помощь по команде uptime
+info uptime # помощь по команде uptime
+whereis uptime # где находится
+locate uptime # где находится
+ps            # процессы
+ctrl-c прервать процесс
+ctrl-z переключить в фон
+fg  вернуть с фона
+sudo ls -la -R /
+----- 4 ----------------------
+в media другие диски и флешки
+cd /     # корень
+cd       # домашняя    
+cd ~     # домашняя    
+ls -la   # и скрытые директории 
+pwd      # какая директория
+----- 5 ----------------------
+cat readme.txt       # вывести на экран  readme.txt
+more readme.txt      # вывести на экран  readme.txt
+less readme.txt      # вывести на экран  readme.txt q
+----
+touch readme.txt          # создает файл или обновить время(и у директории)
+cp file.txt ~/Desktop/    # скопировать файл
+cp f?le*.* -v ~/Desktop/  # скопировать файлы   -v покопирует, что копирует
+cp -R Dir1 NewDir         # рекурсивно копируется
+rm *.*                    # стереть файлы
+mv secret.txt .secret.txt # переименовать и точка сделала скрытым 
+----- 6 ----------------------
+mkdir dir
+mkdir -p dir1/dir2/dir3 несколько директорий сразу
+mv Dir1 NewDir
+rmdir dir             удаление директории
+rm -R dir             удаление директории со всем содержимым
+rm -R dir*            все dir* 
+----- 7 ---------------------- 
+ln -s /home/denis/dir1 MyLincToDir # создание ссылки
+ln -s файл_с_полным_путем имя_ссылки
+ln файл файл_дубликат     синхронизируются!
+----- 8 ---------------------- 
+find /home -name "fil*.txt"
+wc r.txt                         # сколько строк, слов и символов
+sort    words.txt   
+sort -n numbers.txt
+cut -d ">" -f 3                            1>2>3>4 делит на поля и берет 3 поле
+cut -d ">" -f 3 | sort                     1>2>3>4 делит на поля и берет 3 поле и сортирует
+cut -d ">" -f 3 | wc                       1>2>3>4 делит на поля и берет 3 поле и считает слова
+----- 9 ---------------------- 
+grep linux ./* ищет слово linux в текущей директории
+grep -i linux ./* игнорирует большие или маленькие буквы
+grep -i linux text.txt
+grep -E "[A-Za-z\.]*@[A-Za-z\.]*.gov" text.txt
+----- 10 --------------------- 
+sort    words.txt   > sorted_words.txt
+sort -n numbers.txt >> sorted_words.txt
+sort    words.txt   > words.txt обнулит файл, а не отсортирует
+grep linux /etc/* 2> errors.txt  
+grep linux /etc/* >good.txt 2> /dev/null вывел плохие в никуда
+2> поток ошибок
+grep linux /etc/* &> text.txt и ошибки и нормальный текст
+----- 11 --------------------- 
+tar cvf my.tar folder   # create v(показывать) file
+tar tf  my.tar          # посмотреть что там за файлы test file 
+tar xvf  my.tar         # распаковать
+gzip bzip2 xz компесируют 1 файл
+gzip my.tar   
+gunzip my.tar   
+bzip2  my.tar   
+bunzip2  my.tar   
+tar cvzf my.tar folder  #используется gzip
+tar cvjf my.tar folder  #используется bzip
+tar cvJf my.tar folder  #используется xz
+zip -r my.zip folder рекурсивно
+unzip my.zip
+----- 12 --------------------- 
+730717
+top        P по процесору M по памяти q вызод
+free -h    память
+ps         процессы
+ps -u denis по польльзователю
+ps -aux  | gep HANDLER
+/var/log все логи
+dmesg | grep sda   лог в памяти
+----- 13 --------------------- 
+gedit  едит
+nano
+pico
+vi
+----- 14 --------------------- 
+cat /etc/passwd    акаунты
+cut -d ":" -f 1 /etc/passwd | sort   акаунты
+sudo cat /etc/shadow    пароли
+cat /etc/group           группы
+whoami                 какой сейчас логин
+su пользователь    войти под польльзователем
+id [пользователь]  информация по пользователю
+who  какие пользователи еще работают
+w    какие пользователи еще работают подробнее
+----- 15 --------------------- 
+sudo useradd -m user1 # создавить юзера с директорией(-m) 
+sudo passwd user1     # задается пароль
+cd /etc/skel/         # там темплейты для создаваемых пользователей
+sudo userdel -r user1 # удаляет и все директории
+sudo groupadd Programmers # группа
+sudo usermod -aG Programmers user1
+sudo deluser user1 Programmers # удальть из группы
+sudo groupdel Programmers # группа
+----- 16 --------------------- 
+sudo chown petya folder/  # поменять владельца 
+x в директории зайти
+sudo chgrp Programmers vasya.txt  # поменять группу
+(u пользователь, g группа, o другие)
+chmod o+x vasya.txt               # others +x остальным разрешили запуск
+chmod g-w vasya.txt               # группе убрали запись
+chmod g-w,o+w vasya.txt
+chmod ugo=r vasya.txt      chmod a=r vasya.txt # all
+r=4 w=2 x =1
+chmod 777 vasya.txt
+на директорию sudo
+sudo chmod o+t share # так нельзя будет стереть этот файл если у директории есть у others права на share w
+chmod 1777 share     #тоже только цифрами
+----- 17 --------------------- 
+ifconfig            # информация о сетевых картах
+ip addr show        # тоже
+rout                # куда пересылать пакеты там можно посм geteway
+ip route show       # тоже
+ping -c 4 8.8.8.8   # 4 раза  
+host www.google.com # ip адреса
+dig  www.google.com # похожее
+netstat             # какие порты открыты
+ssh MyLinux         # подключиться 
+sudo ufw allow 22   # открыть 22 порт
+sudo apt-get install openssh-server # установить ssh сервер
+
+nc google.com 80                                  # netcat
+echo -e "GET /HTTP/1.0\r\n\r\n |nc google.com 80" 
+nc 127.0.0.1 -p 8080 -l                           # создается сервер  -l врежиме сервера
+ss -ltnp                                          # следим за сервером
+ {nc pid=3047 fd=3}
+ ls /proc/3047/fd/3 -la    # сокет
+nc 127.0.0.1 8080                                 # конектимся к нему
+ss -tnp |grep nc                                  # следим за сервером
+nc 127.0.0.1 8080 -p 7777            # теперь не рандомазное число порта клиента
+
+nc 127.0.0.1 -p 8080 -l -u     # udp
+ss -lnp                                          # следим за сервером
+nc 127.0.0.1 8080 -u
+ss -np                                          # следим за сервером
+
+nc 127.0.0.1 -p 8080 -l -e bash   # так все будет исполнять bash  exec
+nc 127.0.0.1 8080
+----- 18 --------------------- 
+wget   http://fjjjj.fff.com/v1.jpg
+sudo apt-get install пакет               # инсталяция
+sudo apt-get install chromium-bsu
+whereis openssh-server
+sudo apt-get remove chromium-bsu         # деинсталяция
+apt install aptitude
+cat /etc/apt/sources.list                # репозиторий
+wget xxxxx.deb
+sudo dpkg -i xxxxx.deb                   # установить заранее скаченый пакет xxxxx.deb
+sudo dpkg -r xxxxx.deb                   # удалить установленый пакет xxxxx.deb
+sudo apt-get install xdemineur           # сапер
+sudo reboot now
+sudo shutdown now

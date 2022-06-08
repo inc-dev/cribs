@@ -1,0 +1,116 @@
+----- 19 ---------------------
+#!/bin/bash
+mycomputer="Lenovo" 
+my=`uname -a`           # выполнит uname c -a и поместит вывод в my
+echo "first param $0"
+echo "second param $2"
+num1=50
+num2=50
+sum=$((num1+num2))
+echo "$num1 + $num2 = $sum"
+myhost=`hostname`
+mygtw="8.8.8.8"
+ping -c 4 $myhost
+ping -c 4 $mygtw
+echo -n "This is done..."
+echo "Really done"
+----- 20 ---------------------
+------------------------------
+if   [ "$1"=="Vasya" ]; then
+  echo "Priven $1"
+elif [ "$1"=="Trunp" ]; then 
+  echo "Hi $1"
+else   echo "zdorova $1"
+fi
+
+x=$2
+read -p "enter x" x         #читать x
+
+case $x in
+      1) echo "one";;
+  [2-9]) echo "2-9";;
+"Petya") echo "Privet $x"
+      *) echo "sorry";;
+esac      
+------------------------------
+COUNTER=0
+while [ $COUNTER -lt 10 ]; do
+   echo "c=$COUNTER"
+   COUNTER=$(($COUNTER+1))
+   # let COUNTER+=1;
+done
+
+for myfile in `ls *.txt`; do
+      cat $myfile
+done
+
+for x in {1..10}; do
+ echo "$x"         
+done
+
+for (( i=1; i<=10; i++)); do 
+ echo "$i"         
+done
+------------------------------
+sum=50
+myFunction()
+{
+ echo "Hi fun 1=$1 2=$2"
+ sum=$(($sum+$1))
+}
+
+myFunction 50 vasya
+----- 1 ----------------------
+sudo fdisk -l                 # /dev/sda1   a -  первый диск  1 это первая партиция
+lsblk                         # посмотреть какие диски и как разбиты
+sudo cfdisk /dev/sdb          # dos new primary write exit
+sudo mkfs.ntfs -f /dev/sdb1   # форматирование
+media$ sudo mkdir hdd2  
+sudo nano /etc/fstab                               # редактируем файл fstab
+           /dev/sdb1 /media/hdd2 ntfs default 0 0  # добавляем строку
+sudo mount /media/hdd2                             # монтируем
+ln -s /media/hdd2/ ~/Desktop/HDD2                  # делаем ссылку на рабочем столе 
+----- 2 ----------------------
+
+cat /etc/hostname  # там имя компа
+cat /etc/hosts     # и там тоже менять если надо
+
+https://habr.com/ru/sandbox/105754/
+
+sudo apt install net-tools
+http://plutonit.ru/view_post.php?id=539
+ifconfig
+sudo ifconfig enp0s8:0 192.168.56.109 netmask 255.255.255.0 up
+sudo ifconfig enp0s8:1 192.168.56.110 netmask 255.255.255.0 up
+sudo ifconfig enp0s8:2 192.168.56.111 netmask 255.255.255.0 up
+ip a           # в место ifconfig 
+sudo nano /etc/network/interfaces
+дописываем
+auto enp0s3
+iface enp0s3 inet static
+   address 192.168.56.105
+   netmask 255.255.255.0
+   gateway 192.168.56.1
+   dns-nameservers 192.168.56.1
+
+вместо рестарта    
+sudo ifdown   enp0s3
+sudo ifup   enp0s3
+
+если временно
+sudo ifconfig имя_карты 1.1.1.1 netmask 255.0.0.0
+----- 3 ----------------------
+service ssh status
+service ssh start
+sudo apt-get install openssh-server # установить ssh сервер
+w # кто залогинелся
+ssh petia@192.168.0.100
+----- 4 ----------------------
+crontab -e
+мин час день месяц день_недели(0воскр)
+*    *   *     *     5  echo "каждую минуту" >> /home/....
+50   12  *     *     *  echo "Privet2" >> /home/....
+*/2  *   *     *     *  echo "каждые 2 минуты" >> /home/....
+*/3 6,18 *     *     *  /home/denis/scripts/script.sh
+sudo cat /var/spool/cron/crontabs/alex  # сохраняется здесь
+sudo nano /etc/crontab # системный хрон

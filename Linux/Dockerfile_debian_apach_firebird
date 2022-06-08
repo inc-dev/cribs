@@ -1,0 +1,16 @@
+ FROM debian:buster
+
+ RUN apt-get -y update
+ RUN apt-get -y install apache2
+
+ RUN apt-get -y install firebird3.0-common
+ RUN apt-get -y install php7.3
+ RUN apt-get -y install mc
+
+ RUN echo 'Hello World from Docker!' > /var/www/html/index.html
+ RUN mkdir /var/www/html/php 
+ RUN echo '<?php phpinfo(); ?>' > /var/www/html/php/t.php
+ 
+
+ CMD ["/usr/sbin/apache2ctl", "-D","FOREGROUND"]
+ EXPOSE 80
