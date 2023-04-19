@@ -1,14 +1,30 @@
+скачать всю ветку
+git clone https://github.com/inc-dev/inc-dev.github.io.git
+
+обновить из гита ветку
+git pull
+
+учесть все файлы
+git add -A
+
+закомитить ветку
+git commit -m "comment"
+
+закинуть в гит изменения
+git push
+
+
+//-----------------------
 cmd
-git clone https://github.com/inc-dev/js-titorial.git
+git clone https://github.com/inc-dev/inc-dev.github.io.git
 cd js-titorial
-�������� ����������
 git status 
 git add 01
 git commit -m "comment"
 git push
 //---------
 git pull 
-�������� ����������
 git status
 git add -A
 git commit -m "comment"
+
